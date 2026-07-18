@@ -1,0 +1,10 @@
+{
+  "name": "go-placeholder",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "echo \"No app yet. Add your app code to apps/go and update scripts.\" && exit 0",
+    "build": "echo \"No build configured for placeholder.\" && exit 0",
+    "start": "echo \"No start configured for placeholder.\" && exit 0"
+  }
+}
