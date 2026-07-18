@@ -1322,6 +1322,107 @@ html[data-theme="dark"] .result-box {
   }
 }
 
+/* ===== Dialogue ===== */
+.dialogue-box {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.dialogue-a {
+  margin: 4px 0;
+  padding: 4px 8px;
+  border-left: 3px solid var(--sakura);
+  background: var(--sakura-soft);
+  border-radius: 0 6px 6px 0;
+}
+
+.dialogue-b {
+  margin: 4px 0 4px 24px;
+  padding: 4px 8px;
+  border-left: 3px solid var(--indigo);
+  background: rgba(99, 102, 241, 0.06);
+  border-radius: 0 6px 6px 0;
+}
+
+.dialogue-detail {
+  font-size: 14px;
+}
+
+.dialogue-detail summary {
+  cursor: pointer;
+  color: var(--indigo);
+  font-weight: 500;
+  padding: 8px 0;
+}
+
+.dialogue-detail p {
+  margin: 8px 0;
+  color: var(--muted);
+}
+
+/* ===== Reading ===== */
+.reading-box {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  font-size: 15px;
+  line-height: 2.1;
+}
+
+.reading-para {
+  margin: 0 0 12px;
+}
+
+.reading-para:last-child {
+  margin-bottom: 0;
+}
+
+.reading-detail {
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.reading-detail summary {
+  cursor: pointer;
+  color: var(--indigo);
+  font-weight: 500;
+  padding: 8px 0;
+}
+
+.reading-detail p {
+  margin: 8px 0;
+  color: var(--muted);
+}
+
+.reading-questions {
+  background: var(--sakura-soft);
+  border-radius: 10px;
+  padding: 14px 20px;
+}
+
+.reading-questions h4 {
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.reading-questions ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.reading-questions li {
+  margin: 6px 0;
+  font-size: 14px;
+  color: var(--ink);
+}
+
 /* ===== Dark mode overrides ===== */
 html[data-theme="dark"] .sidebar {
   background:
@@ -1361,6 +1462,29 @@ html[data-theme="dark"] .pill {
 
 html[data-theme="dark"] .sakura-atmosphere span {
   opacity: calc(var(--petal-opacity) * 0.35);
+}
+
+html[data-theme="dark"] .dialogue-box,
+html[data-theme="dark"] .reading-box {
+  background: #1e2028;
+  border-color: #2d2f3a;
+}
+
+html[data-theme="dark"] .dialogue-a {
+  background: rgba(244, 114, 182, 0.08);
+}
+
+html[data-theme="dark"] .dialogue-b {
+  background: rgba(129, 140, 248, 0.08);
+}
+
+html[data-theme="dark"] .reading-questions {
+  background: rgba(244, 114, 182, 0.06);
+}
+
+html[data-theme="dark"] .dialogue-detail p,
+html[data-theme="dark"] .reading-detail p {
+  color: #9e9eb0;
 }
 
 /* ===== Print styles ===== */

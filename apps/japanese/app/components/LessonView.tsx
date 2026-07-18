@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, CheckCircle2, Clock, Menu, Target } from "lucide-react";
+import { BookOpen, CheckCircle2, Clock, Menu, Target, MessageCircle, BookText } from "lucide-react";
 import type { Month, Lesson } from "@/lib/types";
 import { yearRoadmap } from "@/lib/curriculum";
 import Roadmap from "./Roadmap";
@@ -146,6 +146,56 @@ export default function LessonView({
           ))}
         </div>
       </article>
+
+      {lesson.dialogue?.jp ? (
+        <article className="section">
+          <h3><MessageCircle size={18} /> 场景对话</h3>
+          <div className="dialogue-box">
+            {lesson.dialogue.jp.split("\n").map((line) => {
+              const trimmed = line.trim();
+              if (!trimmed) return null;
+              const isA = trimmed.startsWith("A：") || trimmed.startsWith("A:");
+              return (
+                <p key={trimmed} className={isA ? "dialogue-a" : "dialogue-b"}>
+                  {trimmed}
+                </p>
+              );
+            })}
+          </div>
+          <details className="dialogue-detail">
+            <summary>查看翻译与解析</summary>
+            <p><strong>翻译：</strong>{lesson.dialogue.cn}</p>
+            <p><strong>要点：</strong>{lesson.dialogue.note}</p>
+          </details>
+        </article>
+      ) : null}
+
+      {lesson.readingPassage?.jp ? (
+        <article className="section">
+          <h3><BookText size={18} /> 阅读练习：{lesson.readingPassage.title}</h3>
+          <div className="reading-box">
+            {lesson.readingPassage.jp.split("\n").map((para) => {
+              const trimmed = para.trim();
+              if (!trimmed) return null;
+              return <p key={trimmed} className="reading-para">{trimmed}</p>;
+            })}
+          </div>
+          <details className="reading-detail">
+            <summary>查看翻译</summary>
+            <p>{lesson.readingPassage.cn}</p>
+          </details>
+          {lesson.readingPassage.questions?.length ? (
+            <div className="reading-questions">
+              <h4>思考问题</h4>
+              <ol>
+                {lesson.readingPassage.questions.map((q, i) => (
+                  <li key={i}>{q}</li>
+                ))}
+              </ol>
+            </div>
+          ) : null}
+        </article>
+      ) : null}
 
       <Exercises exercises={lesson.exercises} lessonId={lesson.id} />
 

@@ -2,7 +2,7 @@ import { topics } from "./data";
 import { buildLesson } from "./utils";
 import type { Month } from "./types";
 
-export type { Exercise, Lesson, Month, Topic, TopicWeek, SidebarMonth, SidebarWeek } from "./types";
+export type { Exercise, Lesson, Month, Topic, TopicWeek, SidebarMonth, SidebarWeek, Dialogue, ReadingPassage } from "./types";
 import type { SidebarMonth } from "./types";
 
 export const curriculum: Month[] = topics.map((topic, monthIndex) => ({

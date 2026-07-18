@@ -67,6 +67,30 @@ const DICTIONARY: Record<string, string> = {
   旅行: "旅行",
   買い物: "购物",
   料理: "料理／做菜",
+  // ===== N5 扩展 =====
+  くすり: "药",
+  "テスト": "考试／测验",
+  名前: "名字",
+  国: "国家",
+  かばん: "包",
+  椅子: "椅子",
+  話します: "说／讲（ます形）",
+  買います: "买（ます形）",
+  美味しい: "好吃",
+  有名: "有名",
+  先週: "上周",
+  来月: "下个月",
+  教えます: "教（ます形）",
+  手伝います: "帮忙（ます形）",
+  天気: "天气",
+  公園: "公园",
+  走る: "跑步",
+  入れる: "放入",
+  出す: "拿出／寄出",
+  暖かい: "暖和",
+  辛い: "辣／辛苦",
+  大きい: "大的",
+  小さい: "小的",
   // ===== N4 基础 =====
   作る: "制作",
   洗う: "洗",
@@ -132,6 +156,11 @@ const DICTIONARY: Record<string, string> = {
   説明: "说明",
   案内: "引导／导游",
   相談: "商量",
+  // ===== N4 扩展 =====
+  覚えられる: "能记住",
+  作れる: "能做",
+  増える: "增加",
+  変わる: "变化",
   // ===== N3 基础 =====
   開く: "开（自动）",
   開ける: "打开（他动）",
@@ -195,6 +224,14 @@ const DICTIONARY: Record<string, string> = {
   反対: "反对",
   賛成: "赞成",
   課題: "课题",
+  // ===== N3 扩展 =====
+  挑戦: "挑战",
+  直す: "修理／改正",
+  届ける: "送达／提交",
+  落ちる: "掉落（自动）",
+  落とす: "弄掉（他动）",
+  可能: "可能",
+  確実: "确实可靠",
   // ===== N2 基础 =====
   手段: "手段",
   立場: "立场",
@@ -245,6 +282,32 @@ const DICTIONARY: Record<string, string> = {
   結論: "结论",
   反論: "反驳",
   要約: "概括",
+  // ===== N2 扩展 =====
+  予想: "预想",
+  雰囲気: "气氛",
+  報告: "报告",
+  片付け: "整理／收拾",
+  招待: "邀请",
+  信じる: "相信",
+  おる: "在（谦让语）",
+  頂戴: "收到／请给",
+  過程: "过程",
+  解決: "解决",
+  未来: "未来",
+  対象: "対象",
+  兆候: "征兆",
+  典型: "典型",
+  経緯: "原委／经过",
+  決断: "决断",
+  現実: "现实",
+  推測: "推测",
+  確信: "确信",
+  認識: "认识",
+  役割: "角色／作用",
+  段落: "段落",
+  主旨: "主旨",
+  修飾: "修饰",
+  機能: "功能",
   // ===== N1 基础 =====
   悲観: "悲观",
   楽観: "乐观",
@@ -355,6 +418,34 @@ const DICTIONARY: Record<string, string> = {
   緊張: "紧张",
   落ち着く: "冷静下来",
   自信: "自信",
+  // ===== N1 扩展 =====
+  絶望: "绝望",
+  最高: "最好／最高",
+  財政: "财政",
+  国際: "国际",
+  調整: "调整",
+  決裁: "裁决／批准",
+  論理: "逻辑",
+  即応: "立即应对",
+  郷愁: "乡愁",
+  耽美: "耽美",
+  遂行: "执行／完成",
+  軽視: "轻视",
+  徹底: "彻底",
+  芳しくない: "不佳",
+  係り受け: "依存关系",
+  抽象化: "抽象化",
+  具体化: "具体化",
+  先方: "对方",
+  取り急ぎ: "匆忙／赶紧",
+  自己採点: "自我评分",
+  合格基準: "合格标准",
+  弱点補強: "弱点补强",
+  反復練習: "反复练习",
+  冷静: "冷静",
+  遂行力: "执行力",
+  平常心: "平常心",
+  万全: "万无一失",
 };
 
 export function makeChineseMeaning(word: string) {
@@ -473,6 +564,47 @@ export function buildLesson(
   const firstVocab = week.vocab[0];
   const hints = levelHint(topic.level);
 
+  // Build explain blocks
+  const explainBlocks = [
+    {
+      title: `1. ${topic.level} 阶段学习提示`,
+      body: hints,
+    },
+    {
+      title: "2. 规则解释",
+      body: [
+        `核心表达「${firstGrammar}」要先拆成结构。观察它前面的词形、后面的谓语形式，再判断它表达的是事实、判断、请求、推测、转折还是结果。`,
+        `表达「${secondGrammar}」时，不要逐字翻译中文。先想清楚日语句子的中心信息，再把补充信息放到合适位置。遇到长句时，先找谓语，再找主语和修饰成分。`,
+        `本周词汇「${firstVocab}」需要和搭配一起记。只背中文意思会导致考试时认得出来但选不出来，所以每个词至少配一个动词、一个名词或一个场景。`,
+      ],
+    },
+  ];
+
+  // Use specific common mistakes if provided, otherwise fall back to generic
+  if (week.commonMistakes && week.commonMistakes.length > 0) {
+    explainBlocks.push({
+      title: "3. 常见易错点",
+      body: week.commonMistakes,
+    });
+  } else {
+    explainBlocks.push({
+      title: "3. 易错点",
+      body: [
+        "不要把中文语序直接搬进日语。日语常把修饰信息放在名词前，把核心判断放在句尾。",
+        "助词要服务于关系：は提示主题，が标记新信息或主体，を标记动作对象，に常表示时间、目标、存在点，で常表示动作发生地点或手段。",
+        "同一个中文意思可能对应多个日语表达。考试题常考语气差别，例如客观事实、主观判断、传闻、样态、让步、强烈评价之间的差别。",
+      ],
+    });
+  }
+
+  // Add cultural note if provided
+  if (week.culturalNote) {
+    explainBlocks.push({
+      title: "4. 文化知识延伸",
+      body: [week.culturalNote],
+    });
+  }
+
   return {
     id,
     title: week.title,
@@ -483,44 +615,30 @@ export function buildLesson(
     objectives: [
       `理解并能主动使用本周主题：${week.focus}。`,
       `掌握核心表达：${week.grammar.join("；")}。`,
-      `记住并会在句子中使用本周词汇：${week.vocab.join("、")}。`,
+      `记住并会在句子中使用本周词汇：${week.vocab.slice(0, 6).join("、")}${week.vocab.length > 6 ? " 等" + week.vocab.length + "个词" : ""}。`,
       `完成输出任务：${week.task}`,
     ],
-    explain: [
-      {
-        title: `1. ${topic.level} 阶段学习提示`,
-        body: hints,
-      },
-      {
-        title: "2. 规则解释",
-        body: [
-          `核心表达「${firstGrammar}」要先拆成结构。观察它前面的词形、后面的谓语形式，再判断它表达的是事实、判断、请求、推测、转折还是结果。`,
-          `表达「${secondGrammar}」时，不要逐字翻译中文。先想清楚日语句子的中心信息，再把补充信息放到合适位置。遇到长句时，先找谓语，再找主语和修饰成分。`,
-          `本周词汇「${firstVocab}」需要和搭配一起记。只背中文意思会导致考试时认得出来但选不出来，所以每个词至少配一个动词、一个名词或一个场景。`,
-        ],
-      },
-      {
-        title: "3. 易错点",
-        body: [
-          "不要把中文语序直接搬进日语。日语常把修饰信息放在名词前，把核心判断放在句尾。",
-          "助词要服务于关系：は提示主题，が标记新信息或主体，を标记动作对象，に常表示时间、目标、存在点，で常表示动作发生地点或手段。",
-          "同一个中文意思可能对应多个日语表达。考试题常考语气差别，例如客观事实、主观判断、传闻、样态、让步、强烈评价之间的差别。",
-        ],
-      },
-    ],
+    explain: explainBlocks,
     patterns: week.grammar.map((grammar, index) => [
       grammar,
       `先确认接续，再确认语气。这个表达在本周主题「${week.focus}」中承担核心功能，适合放进口语、短文或阅读理解中反复训练。`,
       `例：${makeJapaneseExample(grammar, week.vocab[index % week.vocab.length])}`,
     ]),
-    vocabulary: week.vocab.map((word, index) => [
-      word,
-      index % 2 === 0 ? "重点读音需查词典确认" : "注意长音、促音或浊音",
-      makeChineseMeaning(word),
-      index % 2 === 0
-        ? `建议搭配：${word}を覚える / ${word}が大切だ`
-        : `建议搭配：${word}について / ${word}に注意する`,
-    ]),
+    vocabulary: week.vocab.map((word, index) => {
+      const readingHints = ["重点读音需查词典确认", "注意长音、促音或浊音", "确认声调（アクセント）", "注意汉字与假名对应"];
+      const usageHints = [
+        `建议搭配：${word}を覚える`,
+        `建议搭配：${word}について`,
+        `建议搭配：${word}に注意する`,
+        `建议搭配：${word}が大切だ`,
+      ];
+      return [
+        word,
+        readingHints[index % readingHints.length],
+        makeChineseMeaning(word),
+        usageHints[index % usageHints.length],
+      ];
+    }),
     examples: [
       {
         jp: makeJapaneseExample(firstGrammar, firstVocab),
@@ -566,10 +684,7 @@ export function buildLesson(
       {
         type: "造句题",
         question: `请使用以下词汇各造一个完整的日语句子：${week.vocab.slice(0, 4).join("、")}。`,
-        answer: week.vocab
-          .slice(0, 4)
-          .map((w) => `${w}：${w}について勉強しています。`)
-          .join(" / "),
+        answer: week.vocab.slice(0, 4).map((w) => `${w}：${w}について勉強しています。`).join(" / "),
         analysis: "造句时要检查三点：词性是否正确，助词是否正确，句末时态和礼貌程度是否统一。",
       },
       {
@@ -608,5 +723,7 @@ export function buildLesson(
       "三天后复习：重做练习题，错题必须写出错误原因，而不是只写正确答案。",
       "周末输出：完成本周任务，并朗读录音 2 遍，检查停顿、长音和句末语调。",
     ],
+    dialogue: week.dialogue,
+    readingPassage: week.readingPassage,
   };
 }
