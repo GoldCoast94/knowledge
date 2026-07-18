@@ -3,11 +3,11 @@
 import { useCallback, useEffect, useMemo, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { curriculum, sidebarData } from "@/lib/curriculum";
-import Sidebar from "./components/Sidebar";
-import LessonView from "./components/LessonView";
-import SakuraAtmosphere from "./components/Shared";
-import { useProgress } from "./useProgress";
-import { useTheme } from "./useTheme";
+import Sidebar from "../components/Sidebar";
+import LessonView from "../components/LessonView";
+import SakuraAtmosphere from "../components/Shared";
+import { useProgress } from "../useProgress";
+import { useTheme } from "../useTheme";
 
 function HomePage() {
   const router = useRouter();
@@ -19,17 +19,18 @@ function HomePage() {
   const [query, setQuery] = useState("");
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const active = (() => {
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
+  const active = useMemo(() => {
     for (const month of curriculum) {
       const lesson = month.weeks.find((week) => week.id === activeId);
       if (lesson) return { month, lesson };
     }
     return { month: curriculum[0], lesson: curriculum[0].weeks[0] };
-  })();
+  }, [activeId]);
 
-  const totalWeeks = curriculum.reduce(
-    (sum, month) => sum + month.weeks.length,
-    0
+  const totalWeeks = useMemo(
+    () => curriculum.reduce((sum, month: any) => sum + month.weeks.length, 0),
+    []
   );
 
   const selectWeek = useCallback(

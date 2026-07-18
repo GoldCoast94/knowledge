@@ -1,9 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  basePath: "/japanese",
   output: "export",
-  trailingSlash: true,
+  trailingSlash: true
 };
 
 export default nextConfig;

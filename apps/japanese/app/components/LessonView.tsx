@@ -26,12 +26,17 @@ export default function LessonView({
   onToggleProgress,
   isCompleted,
   sidebarOpen,
-  onOpenSidebar,
+  onOpenSidebar
 }: Props) {
   return (
     <main className="content">
       <header className="topbar">
-        <button className="icon-button" onClick={onOpenSidebar} type="button" aria-label="打开菜单">
+        <button
+          className="icon-button"
+          onClick={onOpenSidebar}
+          type="button"
+          aria-label="打开菜单"
+        >
           <Menu size={20} />
         </button>
         <div className="title-block">
@@ -41,7 +46,9 @@ export default function LessonView({
         </div>
         <div className="stats" aria-label="课程统计">
           <span>{curriculum.length} 个月</span>
-          <span>{curriculum.reduce((sum, m) => sum + m.weeks.length, 0)} 周</span>
+          <span>
+            {curriculum.reduce((sum, m) => sum + m.weeks.length, 0)} 周
+          </span>
           <span>N5 → N1</span>
         </div>
       </header>
@@ -49,10 +56,26 @@ export default function LessonView({
       <Roadmap items={yearRoadmap} />
 
       <section className="overview-grid">
-        <InfoCard icon={<Target size={20} />} title="本周重点" text={lesson.focus} />
-        <InfoCard icon={<Clock size={20} />} title="建议时间" text={lesson.time} />
-        <InfoCard icon={<BookOpen size={20} />} title="学习方法" text={lesson.method} />
-        <InfoCard icon={<CheckCircle2 size={20} />} title="输出任务" text={lesson.objectives.at(-1) ?? lesson.objectives[0]} />
+        <InfoCard
+          icon={<Target size={20} />}
+          title="本周重点"
+          text={lesson.focus}
+        />
+        <InfoCard
+          icon={<Clock size={20} />}
+          title="建议时间"
+          text={lesson.time}
+        />
+        <InfoCard
+          icon={<BookOpen size={20} />}
+          title="学习方法"
+          text={lesson.method}
+        />
+        <InfoCard
+          icon={<CheckCircle2 size={20} />}
+          title="输出任务"
+          text={lesson.objectives.at(-1) ?? lesson.objectives[0]}
+        />
       </section>
 
       <article className="section">
@@ -93,7 +116,10 @@ export default function LessonView({
 
       <article className="section">
         <h3>词汇与表达</h3>
-        <DataTable headers={["日语", "读音", "中文", "用法提示"]} rows={lesson.vocabulary} />
+        <DataTable
+          headers={["日语", "读音", "中文", "用法提示"]}
+          rows={lesson.vocabulary}
+        />
       </article>
 
       <Flashcards
@@ -101,7 +127,7 @@ export default function LessonView({
           word,
           reading,
           meaning,
-          usage,
+          usage
         }))}
       />
 

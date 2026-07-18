@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowLeft, ArrowRight, RotateCcw, Shuffle } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 type Card = {
   word: string;
@@ -14,25 +14,28 @@ type Props = {
   cards: Card[];
 };
 
+function createCardOrder(length: number) {
+  const arr = Array.from({ length }, (_, i) => i);
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 export default function Flashcards({ cards }: Props) {
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
-  const [order, setOrder] = useState<number[]>([]);
+  const [order, setOrder] = useState<number[]>(() =>
+    createCardOrder(cards.length)
+  );
 
   const shuffle = useCallback(() => {
-    const arr = Array.from({ length: cards.length }, (_, i) => i);
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
+    const arr = createCardOrder(cards.length);
     setOrder(arr);
     setIndex(0);
     setFlipped(false);
   }, [cards.length]);
-
-  useEffect(() => {
-    shuffle();
-  }, [shuffle]);
 
   const current = cards[order[index]] ?? cards[0];
 
@@ -57,7 +60,10 @@ export default function Flashcards({ cards }: Props) {
         </span>
       </h3>
 
-      <div className={`flashcard ${flipped ? "flipped" : ""}`} onClick={() => setFlipped(!flipped)}>
+      <div
+        className={`flashcard ${flipped ? "flipped" : ""}`}
+        onClick={() => setFlipped(!flipped)}
+      >
         <div className="flashcard-inner">
           <div className="flashcard-front">
             <span className="flashcard-word">{current.word}</span>
@@ -75,7 +81,11 @@ export default function Flashcards({ cards }: Props) {
         <button className="flashcard-btn" onClick={prev} type="button">
           <ArrowLeft size={18} /> 上一张
         </button>
-        <button className="flashcard-btn" onClick={() => setFlipped(!flipped)} type="button">
+        <button
+          className="flashcard-btn"
+          onClick={() => setFlipped(!flipped)}
+          type="button"
+        >
           <RotateCcw size={18} /> 翻转
         </button>
         <button className="flashcard-btn" onClick={shuffle} type="button">

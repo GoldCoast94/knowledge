@@ -23,11 +23,7 @@ function saveProgress(progress: Set<string>) {
 }
 
 export function useProgress() {
-  const [progress, setProgress] = useState<Set<string>>(new Set());
-
-  useEffect(() => {
-    setProgress(loadProgress());
-  }, []);
+  const [progress, setProgress] = useState<Set<string>>(() => loadProgress());
 
   const toggle = useCallback((id: string) => {
     setProgress((prev) => {
@@ -42,10 +38,7 @@ export function useProgress() {
     });
   }, []);
 
-  const has = useCallback(
-    (id: string) => progress.has(id),
-    [progress],
-  );
+  const has = useCallback((id: string) => progress.has(id), [progress]);
 
   return { progress, toggle, has };
 }
